@@ -1,0 +1,50 @@
+Aula 1
+```sql
+SELECT * FROM "NOME_TABELA_SILVER_VENDAS";
+
+SELECT * FROM "NOME_TABELA_SILVER_ESTOQUES";
+
+SELECT * FROM "NOME_TABELA_SILVER_REDES_SOCIAIS";
+```
+Aula 2
+```sql
+SELECT 
+    Produto,
+    Regiao_cliente,
+    Canal_venda,
+    SUM(Quantidade) AS total_vendas
+FROM 
+    "NOME_TABELA_SILVER_VENDAS"
+GROUP BY 
+    Produto, Regiao_cliente, Canal_venda
+ORDER BY 
+    total_vendas DESC;
+```
+Aula 3
+```sql
+SELECT 
+    Produto,
+    SUM(Quantidade_vendida) AS total_vendida,
+    (SUM(Quantidade_em_estoque) - SUM(Quantidade_vendida)) AS estoque_restante
+FROM 
+    "NOME_TABELA_SILVER_ESTOQUES"
+GROUP BY 
+    Produto
+ORDER BY 
+    estoque_restante ASC;
+```
+Aula 4
+```sql
+SELECT 
+    v.produto,
+    rs.Avaliacao,
+    SUM(v.Quantidade) AS total_vendas
+FROM 
+    "NOME_TABELA_SILVER_REDES_SOCIAIS" rs
+JOIN 
+    "NOME_TABELA_SILVER_VENDAS" v ON rs.Nome_produto = v.Produto
+GROUP BY 
+    v.produto, rs.Avaliacao
+ORDER BY 
+    rs.Avaliacao DESC;
+```
